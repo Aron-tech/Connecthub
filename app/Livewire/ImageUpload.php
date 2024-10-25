@@ -12,7 +12,7 @@ class ImageUpload extends Component
     public $image;
 
     protected $rules = [
-        'image' => 'nullable|image|max:30720',
+        'image' => 'nullable|image|max:20720',
     ];
 
     public function updatedImage()

@@ -10,6 +10,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Middleware\MutualFollowMiddleware;
 use App\http\Controllers\SettingsController;
 use App\http\Controllers\GroupController;
+use App\Models\Group;
 
 Route::get('/', [PostController::class, 'dashboardIndex'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -44,7 +45,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/settings', [SettingsController::class, 'update'])->name('settings.update');
     Route::delete('/settings', [SettingsController::class, 'delete'])->name('settings.delete');
 
-    Route::get('/groups', [GroupController::class, 'index'])->name('groups.index');
+    Route::get('/groups', [GroupController::class, 'indexAll'])->name('groups.indexall');
+    Route::get('/groups/{user}', [GroupController::class, 'indexInGroups'])->name('groups.indexin');
+    Route::get('/mygroups', [GroupController::class, 'indexMyGroups'])->name('groups.indexmy');
+    Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
+    Route::get('/groups/create', [GroupController::class, 'create'])->name('groups.create');
+    Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
+    Route::get('/groups/{group}/edit', [GroupController::class, 'edit'])->name('groups.edit');
+    Route::patch('/groups/{group}', [GroupController::class, 'update'])->name('groups.update');
+    Route::delete('/groups/{group}', [GroupController::class, 'delete'])->name('groups.delete');
+    Route::get('/groups-select', [GroupController::class, 'indexAll'])->name('groups.select');
+
 
 
 });

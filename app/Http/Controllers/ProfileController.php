@@ -25,7 +25,9 @@ class ProfileController extends Controller
      */
     public function update(User $user, Request $request)
     {
-        //dd($request->all());
+        if(Auth::User()->id !== $user->id){
+            abort(403);
+        }
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required',
