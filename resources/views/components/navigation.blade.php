@@ -7,7 +7,7 @@
         <x-nav-link :active="request()->is(['/', 'dashboard'])" href="/">Bejegyzések</x-nav-link>
       </li>
       <li>
-        <x-nav-link :active="request()->is(['chat/*', 'chat-select/*'])" href="/chat">Üzenetek</x-nav-link>
+        <x-nav-link :active="request()->is(['chat','chat/*'])" href="/chat">Üzenetek</x-nav-link>
       </li>
       <li>
         <x-nav-link :active="request()->is('group/*')" href="/group">Csoportok</x-nav-link>

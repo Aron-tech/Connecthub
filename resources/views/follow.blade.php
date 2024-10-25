@@ -20,4 +20,5 @@
             @endforeach
         </div>
     </div>
+    {{ $users->links() }}
 </x-app>
