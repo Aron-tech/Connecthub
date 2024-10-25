@@ -12,7 +12,7 @@ class UploadImage extends Component
     public $image;
 
     protected $rules = [
-        'image' => 'nullable|image|max:30720', // Maximum 30MB
+        'image' => 'nullable|image|max:5120',
     ];
 
     public function updatedImage()
