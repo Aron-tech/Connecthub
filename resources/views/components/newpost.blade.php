@@ -2,8 +2,10 @@
     <div class="p-6">
         <h2 class="text-2xl font-semibold mb-4">Új Bejegyzés Készítése</h2>
 
-        <form method="POST" action="/posts">
+        <form method="POST" action="/posts" enctype="multipart/form-data">
             @csrf
+            <livewire:uploadimage />
+
             <div class="mb-4">
                 <label for="content" class="block text-sm font-medium text-gray-700">Tartalom</label>
                 <textarea id="body" name="body" rows="4" required class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-purple-600 focus:ring-1 focus:ring-purple-600 sm:text-sm" placeholder="Írd meg a bejegyzés tartalmát..."></textarea>

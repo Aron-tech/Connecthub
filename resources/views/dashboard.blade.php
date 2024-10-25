@@ -8,4 +8,5 @@
             <x-postcard :post="$post" />
         @endforeach
     </div>
+    {{ $posts->links() }}
 </x-app>

@@ -12,6 +12,7 @@ class Post extends Model
     protected $fillable = [
         'user_id',
         'body',
+        'image',
         'likes',
         'dislikes'
     ];
@@ -25,4 +26,10 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
 }

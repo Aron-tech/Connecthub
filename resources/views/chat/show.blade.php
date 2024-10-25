@@ -1,11 +1,9 @@
 <x-app>
-    <x-slot:title>Chat</x-slot:title>
+    <x-slot:title>Chat - {{ $user->name }}</x-slot:title>
     <div class="container mx-auto py-20">
-        <h1 class="text-3xl font-semibold mb-6 text-center">Chat</h1>
-
         <div class="bg-white shadow-lg rounded-lg h-[500px] flex flex-col overflow-hidden">
             <div class="p-4 border-b border-gray-300">
-                <h2 class="text-xl font-semibold">Beszélgetés</h2>
+                <h2 class="text-xl font-semibold">Chat - {{ $user->name }}</h2>
             </div>
             <div class="flex-grow h-72 overflow-y-auto p-4">
 

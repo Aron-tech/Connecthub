@@ -15,7 +15,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{route('settings.update')}}">
+            <form method="POST" action="{{ route('settings.update') }}">
                 @csrf
                 @method('PATCH')
 
@@ -23,23 +23,22 @@
                     id="email"
                     name="email"
                     value=""
-                    placeholder="{{old('email', Auth::user()->email)}}"
+                    placeholder="{{ old('email', Auth::user()->email) }}"
                     label="Email"
                     type="email"
                 />
 
-                
                 <x-input-field
                     id="password"
                     name="password"
-                    label="Új jelszó (opcionális)"
+                    label="Új jelszó"
                     type="password"
                 />
 
                 <x-input-field
                     id="password_confirmation"
                     name="password_confirmation"
-                    label="Jelszó megerősítése"
+                    label="Új jelszó megerősítése"
                     type="password"
                 />
 
@@ -50,15 +49,7 @@
                 </div>
             </form>
 
-            <form method="POST" action="{{ route('settings.delete') }}" class="mt-6">
-                @csrf
-                @method('DELETE')
-                <div>
-                    <button type="submit" class="w-full inline-flex items-center justify-center rounded-md border border-red-600 py-2 px-4 text-sm font-medium text-red-600 hover:bg-red-600 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
-                        Fiók törlése
-                    </button>
-                </div>
-            </form>
+            <livewire:delete-account/>
         </div>
     </div>
 </x-app>
