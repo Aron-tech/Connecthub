@@ -1,10 +1,19 @@
+@vite('resources/js/comment.js')
 <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6 border border-gray-200">
 
     <div class="p-6 flex items-center">
         <img src="{{ asset('storage/' . $post->user->avatar) }}" alt="Profilkép" class="w-8 h-8 rounded-full border-2 border-purple-600 mr-2">
         <div>
             <h2 class="text-2xl font-semibold mb-1">
-                <a href="/profile/{{ $post->user->id }}" class="text-purple-600 hover:text-purple-800">{{ $post->user->name }}</a>
+                @if($post->group!=null)
+                    <a href="/groups/{{ $post->group->id }}" class="text-xl text-blue-600 hover:text-blue-800">
+                        Csoport: {{$post->group->name}}
+                        -
+                    </a>
+                @endif
+                <a href="/profile/{{ $post->user->id }}" class="text-purple-600 hover:text-purple-800">
+                    {{ $post->user->name }}
+                </a>
             </h2>
             <p class="text-gray-700">{{ $post->body }}</p>
         </div>
@@ -35,14 +44,13 @@
             </form>
         </div>
 
-        <button id="toggle-comments-postid" class="text-purple-600 hover:bg-purple-100 px-4 py-2 border border-purple-600 rounded-full transition focus:outline-none">
+        <button id="toggle-comments-{{ $post->id }}" class="text-purple-600 hover:bg-purple-100 px-4 py-2 border border-purple-600 rounded-full transition focus:outline-none">
             Kommentek ({{ count($post->comments) }})
         </button>
     </div>
 
-    <div id="comments-section-postid" class="hidden px-6 py-4">
-        <div class="mb-4">
-        </div>
+    <div id="comments-section-{{ $post->id }}" class="hidden px-6 py-4">
+        <div class="mb-4"></div>
         <form method="POST" action="/posts/{{ $post->id }}/comments">
             @csrf
             <div class="mb-4">

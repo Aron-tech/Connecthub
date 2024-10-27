@@ -27,9 +27,8 @@ class GroupController extends Controller
         return view('group.index', compact('groups','title'));
     }
 
-    public function indexInGroups(User $user, Request $request)
+    public function indexInGroups(Request $request)
     {
-
         $title='Csoportok amikben bent vagy';
 
         $searchTerm = $request->input('search');
@@ -61,7 +60,20 @@ class GroupController extends Controller
 
     public function show(Group $group)
     {
-        return view('group.show', compact('group'));
+        $posts = $group->posts()
+            ->with(['comments.user', 'user'])
+            ->get();
+
+        return view('group.show', compact('group', 'posts'));
+    }
+
+    public function list(Group $group){
+
+        $title = $group->name.' csoport tagjai';
+
+        $users = $group->members()->simplePaginate(16);
+
+        return view('follow', compact('users', 'title'));
     }
 
     public function create()
@@ -71,6 +83,12 @@ class GroupController extends Controller
 
     public function store(Request $request)
     {
+        $groupCount = Group::where('author_id', Auth::id())->count();
+
+        if ($groupCount >= 5) {
+            return back()->withErrors(['message' => 'Már 5 csoportod van. Nem hozhatsz létre újabbat.']);
+        }
+
         $request->validate([
             'name' => 'required',
             'image' => 'nullable|image|max:5120',
@@ -98,7 +116,7 @@ class GroupController extends Controller
         if(Auth::User()->id !== $group->author_id){
             abort(403);
         }
-        return view('group.edit');
+        return view('group.edit', compact('group'));
     }
 
     public function update(Request $request, Group $group)
@@ -134,5 +152,30 @@ class GroupController extends Controller
         }
         $group->delete();
         return redirect('/groups');
+    }
+
+
+    public function join(Group $group)
+    {
+        $user = User::findorfail(Auth::id());
+
+        if (!$user->groups->contains($group->id)) {
+            $user->groups()->attach($group->id);
+            return redirect()->back()->with('success', 'Csatlakoztál a csoporthoz!');
+        }
+
+        return redirect()->back()->with('error', 'Már tagja vagy a csoportnak.');
+    }
+
+    public function leave(Group $group)
+    {
+        $user = User::findorfail(Auth::id());
+
+        if ($user->groups->contains($group->id)) {
+            $user->groups()->detach($group->id);
+            return redirect()->back()->with('success', 'Kiléptél a csoportból.');
+        }
+
+        return redirect()->back()->with('error', 'Nem vagy tagja a csoportnak.');
     }
 }

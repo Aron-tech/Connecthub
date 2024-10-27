@@ -14,7 +14,8 @@ class Post extends Model
         'body',
         'image',
         'likes',
-        'dislikes'
+        'dislikes',
+        'group_id',
     ];
 
     public function user()
@@ -32,4 +33,8 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
 }

@@ -1,4 +1,6 @@
-@vite('resources/js/emojipicker.js')
+<x-slot:head>
+    @vite('resources/js/emojipicker.js')
+</x-slot:head>
 
 <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-6">
     <div class="p-6 flex">
@@ -12,6 +14,7 @@
                 <div class="mb-4 relative">
                     <label for="body" class="block text-sm font-medium text-gray-700">Tartalom</label>
                     <textarea id="body" name="body" rows="4" required class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-purple-600 focus:ring-1 focus:ring-purple-600 sm:text-sm pr-10" placeholder="Írd meg a bejegyzés tartalmát..."></textarea>
+                    <input hidden name="group_id" value="{{ $group->id }}">
 
                     <button type="button" id="emoji-button" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600 hover:text-gray-800">
                         😊

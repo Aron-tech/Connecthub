@@ -16,13 +16,13 @@
 
             <ul class="absolute hidden group-hover:block mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg transition-opacity duration-300 ease-in-out opacity-0 group-hover:opacity-100 group-hover:delay-150">
                 <li>
-                    <a href="/groups/{{Auth::id()}}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-300 hover:text-purple-800">Csoportjaid</a>
+                    <a href="/groups/in" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-300 hover:text-purple-800">Csoportjaid</a>
                 </li>
                 <li>
                     <a href="/groups" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-300 hover:text-purple-800">Összes csoport</a>
                 </li>
                 <li>
-                    <a href="/mygroups" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-300 hover:text-purple-800">Saját csoportok</a>
+                    <a href="/groups/my" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-300 hover:text-purple-800">Saját csoportok</a>
                 </li>
             </ul>
     <li>
