@@ -10,7 +10,6 @@ use App\Http\Controllers\MessageController;
 use App\Http\Middleware\MutualFollowMiddleware;
 use App\http\Controllers\SettingsController;
 use App\http\Controllers\GroupController;
-use App\Models\Group;
 
 Route::get('/', [PostController::class, 'dashboardIndex'])->middleware(['auth', 'verified'])->name('dashboard');
 

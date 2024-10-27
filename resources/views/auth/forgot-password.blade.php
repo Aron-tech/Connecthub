@@ -7,15 +7,12 @@
         <div class="mb-4 text-sm text-gray-600">
             {{ __('Elfelejtetted a jelszavad? Nem probléma. Csak add meg az email címedet, és mi elküldünk neked egy jelszó visszaállító linket, amellyel választhatsz egy újat.') }}
         </div>
-
-        <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <div class="bg-white shadow-lg rounded-lg p-8">
             <form method="POST" action="{{ route('password.email') }}">
                 @csrf
 
-                <!-- Email Address -->
                 <x-input-field id="email" name="email" type="email" :value="old('email')" label="Email" required autofocus />
 
                 <div class="flex items-center justify-end mt-4">
