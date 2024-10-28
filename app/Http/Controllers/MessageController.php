@@ -55,7 +55,7 @@ class MessageController extends Controller
 
    public function store(Request $request, User $user){
         {
-            $message = Message::create([
+            Message::create([
                 'sender_id' => Auth::id(),
                 'receiver_id' => $user->id,
                 'message' => $request->input('message')

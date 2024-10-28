@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Group;
 use App\Models\User;
-use App\Models\Post;
 
 
 class GroupController extends Controller
@@ -61,10 +60,10 @@ class GroupController extends Controller
 
     public function show(Group $group)
     {
-        $posts = Group::with(['user', 'comments.user', 'posts'])
+        $posts = Group::with(['user', 'comments.user'])
         ->where('group_id', $group->id)
         ->orderBy('created_at', 'desc')
-        ->get();
+        ->paginate(5);
 
         return view('group.show', compact('group', 'posts'));
     }

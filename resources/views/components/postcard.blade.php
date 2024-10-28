@@ -27,21 +27,7 @@
 
     <div class="flex items-center justify-between px-6 py-4 border-t border-gray-300 bg-gray-50">
         <div class="flex space-x-4">
-            <form method="POST" action="/post/{{ $post->id }}/like">
-                @csrf
-                @method('PATCH')
-                <button type="submit" class="flex items-center text-green-600 hover:text-green-800 px-4 py-2 border border-gray-400 rounded-full transition hover:bg-green-100">
-                    👍 Tetszik ({{ $post->likes }})
-                </button>
-            </form>
-
-            <form method="POST" action="/post/{{ $post->id }}/dislike">
-                @csrf
-                @method('PATCH')
-                <button type="submit" class="flex items-center text-red-600 hover:text-red-800 px-4 py-2 border border-gray-400 rounded-full transition hover:bg-red-100">
-                    👎 Nem tetszik ({{ $post->dislikes }})
-                </button>
-            </form>
+            <livewire:likes :post="$post" />
         </div>
 
         <button id="toggle-comments-{{ $post->id }}" class="text-purple-600 hover:bg-purple-100 px-4 py-2 border border-purple-600 rounded-full transition focus:outline-none">
