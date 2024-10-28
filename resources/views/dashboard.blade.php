@@ -1,5 +1,4 @@
 <x-app>
-    <x-slot:head>@vite('resources/js/comment.js')</x-slot:head>
     <x-slot:title>Bejegyzések</x-slot:title>
 
     <div class="container mx-auto py-8">

@@ -9,14 +9,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Like;
 
-use function Pest\Laravel\post;
+
 
 class PostController extends Controller
 {
 
     public function ProfileIndex(User $user) {
 
-        $posts = Post::with(['user', 'comments.user'])
+        $posts = Post::with(['user', 'comments.user', 'group'])
                     ->orderBy('created_at', 'desc')
                     ->where('user_id', $user->id)
                     ->get();
@@ -41,7 +41,7 @@ class PostController extends Controller
 
     $followedID = $currentUser->follows()->pluck('followed_id');
 
-    $posts = Post::with(['user', 'comments.user'])
+    $posts = Post::with(['user', 'comments.user', 'group'])
     ->whereIn('user_id', $followedID)
     ->orWhere('user_id', Auth::id())
     ->orderBy('created_at', 'desc')
@@ -55,10 +55,10 @@ public function store(Request $request)
     $request->validate([
         'body' => 'required|string|max:500',
         'image' => 'nullable|image|max:30720',
+        'group_id' => 'nullable|exists:groups,id',
     ]);
-
     $imagePath = null;
-
+    $group_id = $request->group_id ?? null;
     if ($request->hasFile('image')) {
         $imagePath = $request->file('image')->store('post-images', 'public');
     }
@@ -67,6 +67,7 @@ public function store(Request $request)
         'user_id' => Auth::id(),
         'body' => $request->body,
         'image' => $imagePath,
+        'group_id' => $group_id,
     ]);
     return redirect()->back()->with('success', 'Bejegyzés sikeresen létrehozva!');
 }

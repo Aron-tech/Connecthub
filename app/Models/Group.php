@@ -15,4 +15,23 @@ class Group extends Model
     {
         return $this->belongsToMany(User::class, 'group_user');
     }
+
+    public function membersCount()
+    {
+        return $this->belongsToMany(User::class, 'group_user')->count();
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function postsCount(){
+        return $this->hasMany(Post::class)->count();
+    }
 }

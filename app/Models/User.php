@@ -81,4 +81,14 @@ class User extends Authenticatable
     {
         return $this->follows()->where('followed_id', $user->id)->exists();
     }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'group_user');
+    }
+
+    public function isMemberOf(Group $group)
+    {
+        return $this->groups()->where('group_id', $group->id)->exists();
+    }
 }

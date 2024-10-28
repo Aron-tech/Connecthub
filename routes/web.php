@@ -44,7 +44,20 @@ Route::middleware('auth')->group(function () {
     Route::patch('/settings', [SettingsController::class, 'update'])->name('settings.update');
     Route::delete('/settings', [SettingsController::class, 'delete'])->name('settings.delete');
 
-    Route::get('/groups', [GroupController::class, 'index'])->name('groups.index');
+    Route::get('/groups', [GroupController::class, 'indexAll'])->name('groups.indexall');
+    Route::get('/groups/in', [GroupController::class, 'indexInGroups'])->name('groups.indexin');
+    Route::get('/groups/my', [GroupController::class, 'indexMyGroups'])->name('groups.indexmy');
+    Route::get('/groups/{group}', [GroupController::class, 'show'])->name('groups.show');
+    Route::get('/group/create', [GroupController::class, 'create'])->name('groups.create');
+    Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
+    Route::get('/groups/{group}/edit', [GroupController::class, 'edit'])->name('groups.edit');
+    Route::patch('/groups/{group}', [GroupController::class, 'update'])->name('groups.update');
+    Route::delete('/groups/{group}', [GroupController::class, 'delete'])->name('groups.delete');
+    Route::get('/groups-select', [GroupController::class, 'indexAll'])->name('groups.select');
+
+    Route::post('/groups/{group}/join', [GroupController::class, 'join'])->name('group.join');
+    Route::post('/groups/{group}/leave', [GroupController::class, 'leave'])->name('group.leave');
+    Route::get('/groups/{group}/members', [GroupController::class, 'list'])->name('group.members');
 
 
 });

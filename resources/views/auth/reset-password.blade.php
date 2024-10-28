@@ -1,39 +1,48 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
-        @csrf
+<x-app>
+    <x-slot:title>Jelszó Visszaállítása</x-slot:title>
 
-        <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+    <div class="container mx-auto py-10 max-w-md">
+        <h2 class="text-3xl font-semibold text-center mb-6">Jelszó Visszaállítása</h2>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        <form method="POST" action="{{ route('password.store') }}" class="space-y-4">
+            @csrf
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-field
+                label="Email cím"
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Add meg az email címed"
+                value="{{ old('email', $request->email) }}"
+                required
+                autofocus
+            />
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
+            <x-input-field
+                label="Új jelszó"
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Add meg az új jelszót"
+                required
+            />
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+            <x-input-field
+                label="Jelszó megerősítése"
+                id="password_confirmation"
+                name="password_confirmation"
+                type="password"
+                placeholder="Add meg újra a jelszót"
+                required
+            />
 
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+            <div class="text-center mt-6">
+                <x-primary-button>
+                    {{ __('Jelszó visszaállítása') }}
+                </x-primary-button>
+            </div>
+        </form>
+    </div>
+</x-app>

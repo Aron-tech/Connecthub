@@ -20,7 +20,6 @@ class MutualFollowMiddleware
         if (!$isMutualFollowOne || !$isMutualFollowTwo) {
             return redirect('/chat')->with('error', 'Kölcsönös követés szükséges a chat megnyitásához.');
         }
-
         return $next($request);
     }
 }
