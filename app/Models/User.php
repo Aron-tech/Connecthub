@@ -91,4 +91,9 @@ class User extends Authenticatable
     {
         return $this->groups()->where('group_id', $group->id)->exists();
     }
+
+    public function isAuthorOf(Group $group)
+    {
+        return $this->groups()->where('group_id', $group->id)->where('author_id', $this->id)->exists();
+    }
 }

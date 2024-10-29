@@ -20,10 +20,9 @@ class GroupController extends Controller
 
         $searchTerm = $request->input('search');
 
-            $groups = Group::when($searchTerm, function ($query, $searchTerm) {
-                return $query->where('name', 'like', "%{$searchTerm}%");
-            })
-            ->simplePaginate(16);
+        $groups = Group::searchByName($searchTerm)
+        ->simplePaginate(16);
+
         return view('group.index', compact('groups','title'));
     }
 
@@ -36,9 +35,7 @@ class GroupController extends Controller
         $groups = Group::whereHas('members', function ($query) {
             $query->where('user_id', Auth::id());
         })
-        ->when($searchTerm, function ($query, $searchTerm) {
-            return $query->where('name', 'like', "%{$searchTerm}%");
-        })
+        ->searchByName($searchTerm)
         ->simplePaginate(16);
 
         return view('group.index', compact('groups','title'));
@@ -50,9 +47,7 @@ class GroupController extends Controller
 
         $searchTerm = $request->input('search');
 
-        $groups = Group::when($searchTerm, function ($query, $searchTerm) {
-            return $query->where('name', 'like', "%{$searchTerm}%");
-        })
+        $groups = Group::searchByName($searchTerm)
         ->where('author_id', Auth::id())
         ->simplePaginate(16);
         return view('group.index', compact('groups','title'));
@@ -108,6 +103,8 @@ class GroupController extends Controller
             'description' => $request->description,
             'author_id' => Auth::id(),
         ]);
+
+        $group->users()->attach(Auth::id());
 
         return redirect('/groups/'.$group->id);
     }

@@ -1,42 +1,46 @@
 <x-app>
-    <x-slot:title>Új Csoport Létrehozása</x-slot:title>
+    <x-slot:title>Csoport létrehozása</x-slot:title>
 
-    <div class="container mx-auto py-20 max-w-lg">
-        <h2 class="text-3xl font-semibold text-center mb-6">Új Csoport Létrehozása</h2>
+    <div class="container mx-auto py-20">
+        <h1 class="text-3xl font-semibold mb-6 text-center">Csoport létrehozása</h1>
 
-        <!-- Hibák megjelenítése -->
-        @if ($errors->any())
-            <div class="bg-red-100 text-red-700 p-4 rounded-lg mb-5">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+        <div class="bg-white shadow-lg rounded-lg p-8">
+            <form method="POST" action="/groups" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-6 flex flex-col items-center">
+                    <img src="" alt="Csoportkép" class="w-24 h-24 object-cover rounded-lg border-2 border-purple-600 mb-4" id="current-group-picture">
+                    <label for="image" class="block text-sm font-medium text-gray-700">Csoport kép</label>
+                    <input type="file" id="image" name="image" accept="image/*" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:border-purple-600 focus:ring-1 focus:ring-purple-600" onchange="previewGroupPicture(event)">
+                </div>
 
-        <!-- Csoport létrehozása form -->
-        <form action="{{ route('groups.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
-            @csrf
+                <x-input-field id="name" name="name" label="Csoport neve" type="text" required/>
 
-            <!-- Csoport név -->
-            <x-input-field id="name" name="name" type="text" label="Csoport neve" required autofocus/>
+                <div class="mb-6">
+                    <label for="description" class="block text-sm font-medium text-gray-700">Leírás</label>
+                    <textarea id="description" name="description" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm h-32 text-lg p-2 focus:border-purple-600 focus:ring-1 focus:ring-purple-600"></textarea>
+                </div>
 
-            <!-- Csoport leírás -->
-            <x-input-field id="description" name="description" type="text" label="Csoport leírása" required/>
-
-
-            <div>
-                <label for="image" class="block font-semibold mb-2">Csoport kép</label>
-                <input type="file" name="image" id="image" class="border border-gray-300 rounded-lg p-2 w-full">
-            </div>
-
-            <!-- Létrehozás gomb -->
-            <div class="text-center">
-                <button type="submit" class="bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700">
-                    Csoport Létrehozása
-                </button>
-            </div>
-        </form>
+                <div>
+                    <button type="submit" class="w-full inline-flex items-center justify-center rounded-md border border-transparent bg-purple-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
+                        Csoport létrehozása
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
+
+    <script>
+        function previewGroupPicture(event) {
+            const file = event.target.files[0];
+            const img = document.getElementById('current-group-picture');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 </x-app>

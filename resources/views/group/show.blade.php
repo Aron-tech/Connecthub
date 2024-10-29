@@ -23,15 +23,21 @@
                     <p class="text-gray-500">Posztok</p>
                 </div>
             </div>
-
-            @if (Auth::user()->isMemberOf($group))
+            @if (Auth::user()->isAuthorOf($group))
+                <form action="/groups/{{ $group->id }}/edit" method="GET" class="py-5">
+                    <button type="submit" class="bg-purple-600 text-white py-2 px-4 rounded-lg">
+                        Csoport szerkesztése
+                    </button>
+                </form>
+            @endif
+            @if (Auth::user()->isMemberOf($group) && !Auth::user()->isAuthorOf($group))
                 <form action="/groups/{{ $group->id }}/leave" method="POST">
                     @csrf
                     <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded-lg">
                         Kilépés a csoportból
                     </button>
                 </form>
-            @else
+            @elseif (!Auth::user()->isMemberOf($group))
                 <form action="/groups/{{ $group->id }}/join" method="POST">
                     @csrf
                     <button type="submit" class="bg-purple-600 text-white py-2 px-4 rounded-lg">

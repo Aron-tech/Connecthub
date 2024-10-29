@@ -14,11 +14,13 @@ class UserSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Paron',
+            //'username' => '@paron1',
             'email' => 'contact@paron.hu',
         ],);
 
         User::factory()->create([
             'name' => 'tesztaccount',
+            //'username' => '@tesztaccount2',
             'email' => 'tesztaccount@paron.hu',
         ],);
 
