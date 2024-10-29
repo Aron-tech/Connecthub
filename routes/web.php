@@ -23,8 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
-    Route::patch('/post/{post}/like', [PostController::class, 'like'])->name('post.like');
-    Route::patch('/post/{post}/dislike', [PostController::class, 'dislike'])->name('post.dislike');
+    //Route::patch('/post/{post}/like', [PostController::class, 'like'])->name('post.like');
+    //Route::patch('/post/{post}/dislike', [PostController::class, 'dislike'])->name('post.dislike');
 
     Route::post('/posts', [PostController::class, 'store']);
 

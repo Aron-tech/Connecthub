@@ -34,4 +34,8 @@ class Group extends Model
     public function postsCount(){
         return $this->hasMany(Post::class)->count();
     }
+
+    public function scopeSearchByName($query, $searchTerm) {
+        return $query->where('name', 'like', "%{$searchTerm}%");
+    }
 }

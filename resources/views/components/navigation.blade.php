@@ -24,6 +24,9 @@
                 <li>
                     <a href="/groups/my" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-300 hover:text-purple-800">Saját csoportok</a>
                 </li>
+                <li>
+                    <a href="/group/create" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-300 hover:text-purple-800">Csoport létrehozása</a>
+                </li>
             </ul>
     <li>
         <li class="relative group">

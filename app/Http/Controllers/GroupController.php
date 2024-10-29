@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Group;
 use App\Models\User;
-use App\Models\Post;
 
 
 class GroupController extends Controller
@@ -21,10 +20,9 @@ class GroupController extends Controller
 
         $searchTerm = $request->input('search');
 
-            $groups = Group::when($searchTerm, function ($query, $searchTerm) {
-                return $query->where('name', 'like', "%{$searchTerm}%");
-            })
-            ->simplePaginate(16);
+        $groups = Group::searchByName($searchTerm)
+        ->simplePaginate(16);
+
         return view('group.index', compact('groups','title'));
     }
 
@@ -37,9 +35,7 @@ class GroupController extends Controller
         $groups = Group::whereHas('members', function ($query) {
             $query->where('user_id', Auth::id());
         })
-        ->when($searchTerm, function ($query, $searchTerm) {
-            return $query->where('name', 'like', "%{$searchTerm}%");
-        })
+        ->searchByName($searchTerm)
         ->simplePaginate(16);
 
         return view('group.index', compact('groups','title'));
@@ -51,9 +47,7 @@ class GroupController extends Controller
 
         $searchTerm = $request->input('search');
 
-        $groups = Group::when($searchTerm, function ($query, $searchTerm) {
-            return $query->where('name', 'like', "%{$searchTerm}%");
-        })
+        $groups = Group::searchByName($searchTerm)
         ->where('author_id', Auth::id())
         ->simplePaginate(16);
         return view('group.index', compact('groups','title'));
@@ -61,10 +55,10 @@ class GroupController extends Controller
 
     public function show(Group $group)
     {
-        $posts = Group::with(['user', 'comments.user', 'posts'])
+        $posts = Group::with(['user', 'comments.user'])
         ->where('group_id', $group->id)
         ->orderBy('created_at', 'desc')
-        ->get();
+        ->paginate(5);
 
         return view('group.show', compact('group', 'posts'));
     }
@@ -109,6 +103,8 @@ class GroupController extends Controller
             'description' => $request->description,
             'author_id' => Auth::id(),
         ]);
+
+        $group->users()->attach(Auth::id());
 
         return redirect('/groups/'.$group->id);
     }

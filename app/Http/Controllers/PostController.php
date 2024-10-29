@@ -37,18 +37,18 @@ class PostController extends Controller
     public function dashboardIndex()
     {
 
-    $currentUser = User::findOrFail(Auth::id());
+        $currentUser = User::findOrFail(Auth::id());
 
-    $followedID = $currentUser->follows()->pluck('followed_id');
+        $followedID = $currentUser->follows()->pluck('followed_id');
 
-    $posts = Post::with(['user', 'comments.user', 'group'])
-    ->whereIn('user_id', $followedID)
-    ->orWhere('user_id', Auth::id())
-    ->orderBy('created_at', 'desc')
-    ->simplepaginate(5);
+        $posts = Post::with(['user', 'comments.user', 'group'])
+        ->whereIn('user_id', $followedID)
+        ->orWhere('user_id', Auth::id())
+        ->orderBy('created_at', 'desc')
+        ->simplepaginate(5);
 
-    return view('dashboard', compact('posts'));
-}
+        return view('dashboard', compact('posts'));
+    }
 
 public function store(Request $request)
 {
