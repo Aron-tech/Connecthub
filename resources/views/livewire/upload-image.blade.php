@@ -1,7 +1,15 @@
 <div>
     <!--label for="image" class="block text-sm font-medium text-gray-700">Kép feltöltése</label-->
 
-    <input type="file" name="image" id="image" wire:model="image" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700"/>
+    <div style="width: 96px" class="mt-1 relative block py-3 px-2 widht-110px rounded-md border-0 text-sm font-medium bg-purple-600 text-white hover:bg-purple-700 cursor-pointer">
+        <label for="image">
+            Kép feltöltés
+        </label>
+        <input type="file" name="image" id="image" wire:model="image" accept="image/*"
+               class="absolute top-0 left-0 opacity-0 w-full h-full cursor-pointer" />
+    </div>
+
+
 
     @if ($image)
         <div class="mt-4">

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
-use App\Http\controlles;
+use App\Mail\PasswordChanged;
 
 class SettingsController extends Controller
 {
@@ -33,6 +33,8 @@ class SettingsController extends Controller
         }
 
         $user->update();
+
+        Mail::to($user->email)->send(new PasswordChanged($user));
 
         return redirect()->back()->with('success', 'Beállítások frissítve!');
     }

@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
     emojiPicker.addEventListener('click', function (event) {
         if (event.target.classList.contains('emoji')) {
             const emoji = event.target.getAttribute('data-emoji');
-            textarea.value += emoji; // Emoji hozzáadása a textarea-hoz
-            emojiPicker.classList.add('hidden'); // Picker elrejtése
+            textarea.value += emoji;
+            emojiPicker.classList.add('hidden');
         }
     });
 });
