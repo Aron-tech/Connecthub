@@ -52,7 +52,7 @@
         <x-newpost-ingroup :group="$group" />
     @endif
 
-    @foreach ($group->posts as $post)
+    @foreach ($group?->posts as $post)
         <x-postcard :post="$post" />
     @endforeach
 </x-app>

@@ -55,7 +55,7 @@
       <li>
         <form action="/logout" method="POST">
           @csrf
-          <button class="rounded-md px-3 py-2 text-sm font-medium  text-gray-700 hover:text-blue-600" type="submit">Kijelentkezik</button>
+          <button class="rounded-md px-3 py-2 text-sm font-medium  text-gray-700 hover:text-blue-600" type="submit">Kijelentkezés</button>
         </form>
       </li>
       @endauth
